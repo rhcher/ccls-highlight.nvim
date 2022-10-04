@@ -29,11 +29,7 @@ function! lsp_cxx_hl#parse#normalize_symbols(symbols, is_ccls) abort
         let l:kind = s:symbol_kind_str(get(l:sym, 'kind', 0))
         let l:pkind = s:symbol_kind_str(get(l:sym, 'parentKind', 0))
 
-        if a:is_ccls
-            let l:storage = s:ccls_storage_str(get(l:sym, 'storage', 0))
-        else
-            let l:storage = s:cquery_storage_str(get(l:sym, 'storage', 0))
-        endif
+        let l:storage = s:ccls_storage_str(get(l:sym, 'storage', 0))
 
         let l:n_sym = {
                     \ 'id': l:id,
@@ -41,10 +37,6 @@ function! lsp_cxx_hl#parse#normalize_symbols(symbols, is_ccls) abort
                     \ 'parentKind': l:pkind,
                     \ 'storage': l:storage,
                     \ }
-
-        if !a:is_ccls
-            let l:n_sym['role'] = s:cquery_role_dict(get(l:sym, 'role', 0))
-        endif
 
         if l:is_offset
             let l:n_sym['offsets'] = get(l:sym, 'ranges', [])
