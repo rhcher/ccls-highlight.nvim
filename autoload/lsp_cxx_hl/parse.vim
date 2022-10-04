@@ -4,7 +4,7 @@
 " symbol id:       'stableId'  'id'
 " highlight range: 'ranges'    'lsRanges'
 " offsets (ccls):  N/A         'ranges'
-function! lsp_cxx_hl#parse#normalize_symbols(symbols, is_ccls) abort
+function! lsp_cxx_hl#parse#normalize_symbols(symbols) abort
     let l:id_key = 'id'
     let l:range_key = 'lsRanges'
     let l:is_offset = 0
@@ -124,34 +124,4 @@ function! s:ccls_storage_str(sc) abort
                 \ 'Auto',
                 \ 'Register'],
                 \ a:sc, 'None')
-endfunction
-
-" Section: Parse Cquery Role
-let s:k_roles = [
-            \ 'Declaration',
-            \ 'Definition',
-            \ 'Reference',
-            \ 'Read',
-            \ 'Write',
-            \ 'Call',
-            \ 'Dynamic',
-            \ 'Address',
-            \ 'Implicit'
-            \ ]
-
-" Convert the bitmap to a map
-function! s:cquery_role_dict(role_int) abort
-    let l:role_dict = {}
-
-    let l:bit = 1
-
-    for l:role in s:k_roles
-        if and(a:role_int, l:bit) != 0
-            let l:role_dict[l:role] = 1
-        endif
-
-        let l:bit = l:bit * 2
-    endfor
-
-    return l:role_dict
 endfunction

@@ -76,8 +76,7 @@ function! lsp_cxx_hl#notify_symbols(server, buffer, symbols) abort
     let l:bufnr = s:common_notify_checks(a:server, a:buffer, a:symbols)
 
     try
-        let l:n_symbols = lsp_cxx_hl#parse#normalize_symbols(a:symbols,
-                    \ (a:server ==# 'ccls'))
+        let l:n_symbols = lsp_cxx_hl#parse#normalize_symbols(a:symbols)
 
         call lsp_cxx_hl#hl#notify_symbols(l:bufnr, l:n_symbols)
     catch
