@@ -63,14 +63,9 @@ function! lsp_cxx_hl#textprop_nvim#symbols#clear(bufnr) abort
 endfunction
 
 function! s:hl_symbols_wrap(bufnr, timer) abort
-    let l:begintime = lsp_cxx_hl#profile_begin()
-
     call s:hl_symbols(a:bufnr, a:timer)
 
     unlet! g:lsp_cxx_hl_symbols_timer
-
-    call lsp_cxx_hl#profile_end(l:begintime, 'hl_symbols (textprop nvim) ',
-                \ bufname(a:bufnr))
 endfunction
 
 function! s:hl_symbols(bufnr, timer) abort

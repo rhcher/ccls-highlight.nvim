@@ -64,12 +64,7 @@ function! lsp_cxx_hl#notify_skipped(server, buffer, skipped) abort
     let l:bufnr = s:common_notify_checks(a:server, a:buffer, a:skipped)
 
     try
-        let l:begintime = lsp_cxx_hl#profile_begin()
-
         call lsp_cxx_hl#hl#notify_skipped(l:bufnr, a:skipped)
-
-        call lsp_cxx_hl#profile_end(l:begintime,
-                    \ 'notify_skipped ', bufname(l:bufnr))
     catch
         call lsp_cxx_hl#log('notify_skipped error: ', v:exception, 'at',
                     \ v:throwpoint)
@@ -81,15 +76,10 @@ function! lsp_cxx_hl#notify_symbols(server, buffer, symbols) abort
     let l:bufnr = s:common_notify_checks(a:server, a:buffer, a:symbols)
 
     try
-        let l:begintime = lsp_cxx_hl#profile_begin()
-
         let l:n_symbols = lsp_cxx_hl#parse#normalize_symbols(a:symbols,
                     \ (a:server ==# 'ccls'))
 
         call lsp_cxx_hl#hl#notify_symbols(l:bufnr, l:n_symbols)
-
-        call lsp_cxx_hl#profile_end(l:begintime,
-                    \ 'notify_symbols ', bufname(l:bufnr))
     catch
         call lsp_cxx_hl#log('notify_symbols error: ', v:exception, 'at',
                     \ v:throwpoint)
