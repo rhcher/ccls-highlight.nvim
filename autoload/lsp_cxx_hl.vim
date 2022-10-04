@@ -25,15 +25,7 @@ function! s:notify_json_rpc(json) abort
 
     let l:method = get(l:msg, 'method', '')
 
-    if l:method ==? '$cquery/publishSemanticHighlighting'
-        let l:server = 'cquery'
-        let l:is_skipped = 0
-        let l:data_key = 'symbols'
-    elseif l:method ==? '$cquery/setInactiveRegions'
-        let l:server = 'cquery'
-        let l:is_skipped = 1
-        let l:data_key = 'inactiveRegions'
-    elseif l:method ==? '$ccls/publishSemanticHighlight'
+    if l:method ==? '$ccls/publishSemanticHighlight'
         let l:server = 'ccls'
         let l:is_skipped = 0
         let l:data_key = 'symbols'

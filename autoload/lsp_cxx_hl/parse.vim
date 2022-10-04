@@ -5,27 +5,21 @@
 " highlight range: 'ranges'    'lsRanges'
 " offsets (ccls):  N/A         'ranges'
 function! lsp_cxx_hl#parse#normalize_symbols(symbols, is_ccls) abort
-    if a:is_ccls
-        let l:id_key = 'id'
-        let l:range_key = 'lsRanges'
-        let l:is_offset = 0
+    let l:id_key = 'id'
+    let l:range_key = 'lsRanges'
+    let l:is_offset = 0
 
-        " Determine if we are using offsets
-        " Finding one key should be enough
-        for l:sym in a:symbols
-            if len(get(l:sym, 'ranges', [])) > 0
-                let l:is_offset = 1
-                break
-            elseif len(get(l:sym, 'lsRanges', [])) > 0
-                let l:is_offset = 0
-                break
-            endif
-        endfor
-    else
-        let l:id_key = 'stableId'
-        let l:range_key = 'ranges'
-        let l:is_offset = 0
-    endif
+    " Determine if we are using offsets
+    " Finding one key should be enough
+    for l:sym in a:symbols
+        if len(get(l:sym, 'ranges', [])) > 0
+            let l:is_offset = 1
+            break
+        elseif len(get(l:sym, 'lsRanges', [])) > 0
+            let l:is_offset = 0
+            break
+        endif
+    endfor
 
     let l:n_symbols = []
 
