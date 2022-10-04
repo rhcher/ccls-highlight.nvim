@@ -31,39 +31,6 @@ function s:initialize() abort
     call lsp_cxx_hl#log('lsp_cxx_hl beginning initialization...')
 
     try
-        call lsp_cxx_hl#client#vim_lsp#init()
-        call lsp_cxx_hl#log('vim-lsp successfully registered')
-        let l:ok = 1
-    catch /E117:.*lsp#register_notifications/
-        call lsp_cxx_hl#log('vim-lsp not detected')
-    catch
-        call lsp_cxx_hl#log('vim-lsp failed to register: ',
-                    \ v:exception)
-    endtry
-
-    try
-        call lsp_cxx_hl#client#LanguageClient#init()
-        call lsp_cxx_hl#log('LanguageClient-neovim successfully registered')
-        let l:ok = 1
-    catch /E117:.*LanguageClient#registerHandlers/
-        call lsp_cxx_hl#log('LanguageClient-neovim not detected')
-    catch
-        call lsp_cxx_hl#log('LanguageClient-neovim failed to register: ',
-                    \ v:exception)
-    endtry
-
-    try
-        call lsp_cxx_hl#client#coc#init()
-        call lsp_cxx_hl#log('coc.nvim successfully registered')
-        let l:ok = 1
-    catch /E117:.*CocRegistNotification/
-        call lsp_cxx_hl#log('coc.nvim not detected')
-    catch
-        call lsp_cxx_hl#log('coc.nvim failed to register: ',
-                    \ v:exception)
-    endtry
-
-    try
         call lsp_cxx_hl#client#nvim_lsp#init()
         call lsp_cxx_hl#log('nvim-lsp successfully registered')
         let l:ok = 1
