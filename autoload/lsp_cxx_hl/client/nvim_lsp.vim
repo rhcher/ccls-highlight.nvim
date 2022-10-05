@@ -23,22 +23,6 @@ then
   handlers = vim.lsp.callbacks
 end
 
--- handlers['$cquery/publishSemanticHighlighting'] = function(err, method, params, client_id)
---     local data = method
---     if data['uri'] == nil then
---       data = params -- NOTE see change https://github.com/neovim/neovim/pull/15504
---     end
---     vim.api.nvim_call_function('lsp_cxx_hl#client#nvim_lsp#cquery_hl', {data})
--- end
---
--- handlers['$cquery/setInactiveRegions'] = function(err, method, params, client_id)
---     local data = method
---     if data['uri'] == nil then
---       data = params -- NOTE see change https://github.com/neovim/neovim/pull/15504
---     end
---     vim.api.nvim_call_function('lsp_cxx_hl#client#nvim_lsp#cquery_regions', {data})
--- end
-
 handlers['$ccls/publishSemanticHighlight'] = function(err, method, params, client_id)
     local data = method
     if data['uri'] == nil then
@@ -56,21 +40,6 @@ handlers['$ccls/publishSkippedRanges'] = function(err, method, params, client_id
 end
 EOF
 endfunction
-
-
-" function! lsp_cxx_hl#client#nvim_lsp#cquery_hl(params) abort
-"     "call lsp_cxx_hl#log('cquery hl:', a:params)
-"
-"     call lsp_cxx_hl#notify_symbols('cquery', a:params['uri'],
-"                 \ a:params['symbols'])
-" endfunction
-"
-" function! lsp_cxx_hl#client#nvim_lsp#cquery_regions(params) abort
-"     "call lsp_cxx_hl#log('cquery regions:', a:params)
-"
-"     call lsp_cxx_hl#notify_skipped('cquery', a:params['uri'],
-"                 \ a:params['inactiveRegions'])
-" endfunction
 
 function! lsp_cxx_hl#client#nvim_lsp#ccls_hl(params) abort
     "call lsp_cxx_hl#log('ccls hl:', a:params)
