@@ -1,3 +1,8 @@
+# note
+
+This is just a fork of vim-lsp-cxx-highlight plugin that only work with ccls + nvim-lsp.
+I will rewrite it with lua or fennel.
+
 # vim-lsp-cxx-highlight
 
 vim-lsp-cxx-highlight is a vim plugin that provides C/C++/Cuda/ObjC semantic highlighting
@@ -56,12 +61,6 @@ The following language server clients are supported:
 Using [vim-plug](https://www.github.com/junegunn/vim-plug) (Or use the plugin manager of your choice)
 
 ```vim
-Plug 'prabirshrestha/vim-lsp' " vim-lsp
-" or
-Plug 'autozimu/LanguageClient-neovim' " LanguageClient-neovim
-" or
-Plug 'neoclide/coc.nvim' " coc.nvim
-" or
 Plug 'neovim/nvim-lsp' " nvim-lsp
 
 Plug 'jackguo380/vim-lsp-cxx-highlight'
@@ -72,34 +71,12 @@ Using vim8's native package manager (Run this command in a terminal)
 git clone https://github.com/jackguo380/vim-lsp-cxx-highlight.git ~/.vim/pack/vendor/start/vim-lsp-cxx-highlight
 ```
 
-For `cquery` the following initializationOptions are needed:
-```json
-{
-    "highlight": { "enabled" : true },
-    "emitInactiveRegions" : true
-}
-```
-
 For `ccls` the following initializationOptions are needed:
 ```json
 {
     "highlight": { "lsRanges" : true }
 }
 ```
-
-For `clangd` `coc-settings.json` must have:
-```json
-{
-    "clangd.semanticHighlighting": true,
-    "coc.preferences.semanticTokensHighlights": false
-}
-```
-
-For a sample vim-lsp configuration see [this](sample-configs/vim-lsp-register.vim)
-
-For a sample LanguageClient-neovim configuration see [this](sample-configs/LanguageClient-register.vim)
-
-For a sample coc.nvim coc-settings.json see [this](sample-configs/coc-settings.json)
 
 For a sample nvim-lsp configuration see [this](sample-configs/nvim-lsp-register.vim)
 
@@ -119,11 +96,6 @@ What using text-properties improves:
 
 Support for this feature has been tested on Vim version `8.1.1722`, older versions may have problems.
 It is recommended to upgrade to this version or newer.
-
-To enable:
-```vim
-let g:lsp_cxx_hl_use_text_props = 1
-```
 
 **Note:** This is now automatically enabled for vim version 8.2 or greater
 
