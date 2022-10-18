@@ -44,13 +44,11 @@ endfunction
 function! lsp_cxx_hl#client#nvim_lsp#ccls_hl(params) abort
     "call lsp_cxx_hl#log('ccls hl:', a:params)
 
-    call lsp_cxx_hl#notify_symbols('ccls', a:params['uri'],
-                \ a:params['symbols'])
+    call lsp_cxx_hl#notify_symbols(a:params['uri'], a:params['symbols'])
 endfunction
 
 function! lsp_cxx_hl#client#nvim_lsp#ccls_regions(params) abort
     "call lsp_cxx_hl#log('ccls regions:', a:params)
 
-    call lsp_cxx_hl#notify_skipped('ccls', a:params['uri'],
-                \ a:params['skippedRanges'])
+    call lsp_cxx_hl#notify_skipped(a:params['uri'], a:params['skippedRanges'])
 endfunction

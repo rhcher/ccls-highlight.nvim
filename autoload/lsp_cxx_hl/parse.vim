@@ -104,17 +104,6 @@ function! s:symbol_kind_str(kind) abort
     endif
 endfunction
 
-" Section: Parse Storage Class
-" In libclang's enum None = 0
-" but cquery has Invalid = 0
-function! s:cquery_storage_str(sc) abort
-    if a:sc == 0
-        return 'None'
-    endif
-
-    return s:ccls_storage_str(a:sc - 1)
-endfunction
-
 " ccls uses the enum directly
 function! s:ccls_storage_str(sc) abort
     return get(['None',

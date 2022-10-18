@@ -26,11 +26,9 @@ function! s:notify_json_rpc(json) abort
     let l:method = get(l:msg, 'method', '')
 
     if l:method ==? '$ccls/publishSemanticHighlight'
-        let l:server = 'ccls'
         let l:is_skipped = 0
         let l:data_key = 'symbols'
     elseif l:method ==? '$ccls/publishSkippedRanges'
-        let l:server = 'ccls'
         let l:is_skipped = 1
         let l:data_key = 'skippedRanges'
     else
@@ -51,17 +49,15 @@ function! s:notify_json_rpc(json) abort
     let l:bufnr = s:uri2bufnr(l:msg['params']['uri'])
 
     if l:is_skipped
-        call lsp_cxx_hl#notify_skipped(l:server,
-                    \ l:bufnr, l:msg['params'][l:data_key])
+        call lsp_cxx_hl#notify_skipped(l:bufnr, l:msg['params'][l:data_key])
     else
-        call lsp_cxx_hl#notify_symbols(l:server,
-                    \ l:bufnr, l:msg['params'][l:data_key])
+        call lsp_cxx_hl#notify_symbols(l:bufnr, l:msg['params'][l:data_key])
     endif
 endfunction
 
 " Receive already extracted skipped region data
-function! lsp_cxx_hl#notify_skipped(server, buffer, skipped) abort
-    let l:bufnr = s:common_notify_checks(a:server, a:buffer, a:skipped)
+function! lsp_cxx_hl#notify_skipped(buffer, skipped) abort
+    let l:bufnr = s:common_notify_checks(a:buffer, a:skipped)
 
     try
         call lsp_cxx_hl#hl#notify_skipped(l:bufnr, a:skipped)
@@ -72,8 +68,8 @@ function! lsp_cxx_hl#notify_skipped(server, buffer, skipped) abort
 endfunction
 
 " Receive already extracted symbol data
-function! lsp_cxx_hl#notify_symbols(server, buffer, symbols) abort
-    let l:bufnr = s:common_notify_checks(a:server, a:buffer, a:symbols)
+function! lsp_cxx_hl#notify_symbols(buffer, symbols) abort
+    let l:bufnr = s:common_notify_checks(a:buffer, a:symbols)
 
     try
         let l:n_symbols = lsp_cxx_hl#parse#normalize_symbols(a:symbols)
@@ -120,7 +116,7 @@ endfunction
 
 " Section: Helpers
 
-function! s:common_notify_checks(server, buffer, data) abort
+function! s:common_notify_checks(buffer, data) abort
     if type(a:buffer) ==# type("")
         let l:bufnr = s:uri2bufnr(a:buffer)
     elseif type(a:buffer) ==# type(0)
@@ -135,10 +131,6 @@ function! s:common_notify_checks(server, buffer, data) abort
 
     if type(a:data) !=# type([])
         throw 'symbols must be a list'
-    endif
-
-    if a:server !=# 'cquery' && a:server !=# 'ccls'
-        throw 'only cquery or ccls is supported'
     endif
 
     return l:bufnr
